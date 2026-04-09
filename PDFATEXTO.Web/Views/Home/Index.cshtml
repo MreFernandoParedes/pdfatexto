@@ -1,0 +1,62 @@
+@model PdfResultViewModel
+@{
+    ViewData["Title"] = "Inicio";
+    var stateClass = Model.ErrorMessage is not null ? "status--error" : Model.TieneResultado ? "status--success" : "status--idle";
+    var stateText = string.IsNullOrWhiteSpace(Model.Estado) ? "Listo" : Model.Estado;
+}
+
+<section class="panel">
+    <div class="panel__header">
+        <div>
+            <h1 class="panel__title">Cargar documento</h1>
+            <p class="panel__description">Seleccione un archivo PDF para extraer y normalizar su contenido.</p>
+        </div>
+    </div>
+
+    <form asp-action="Index" asp-controller="Home" method="post" enctype="multipart/form-data" class="upload-form">
+        @Html.AntiForgeryToken()
+        <label class="upload-dropzone" for="ArchivoPdf">
+            <span class="upload-dropzone__title">Seleccione un archivo PDF</span>
+            <span class="upload-dropzone__hint">Se procesa un archivo por vez.</span>
+            <input asp-for="Upload.ArchivoPdf" id="ArchivoPdf" accept=".pdf,application/pdf" class="upload-dropzone__input" />
+        </label>
+
+        <div class="upload-actions">
+            <div class="file-meta">
+                @if (!string.IsNullOrWhiteSpace(Model.NombreArchivo))
+                {
+                    <span class="file-meta__label">Archivo seleccionado:</span>
+                    <span class="file-meta__name">@Model.NombreArchivo</span>
+                }
+            </div>
+
+            <button type="submit" class="button button--primary">Procesar documento</button>
+        </div>
+
+        @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+        {
+            <div class="alert alert--error">@Model.ErrorMessage</div>
+        }
+    </form>
+</section>
+
+<section class="panel panel--result">
+    <div class="panel__header panel__header--result">
+        <div>
+            <h2 class="panel__title">Contenido extraido</h2>
+            <p class="panel__description">El contenido procesado se mostrara aqui.</p>
+        </div>
+        <span class="status @stateClass">@stateText</span>
+    </div>
+
+    <div class="result-box" aria-live="polite">
+        @if (Model.TieneResultado)
+        {
+            <pre class="result-box__content">@Model.ContenidoExtraido</pre>
+        }
+        else
+        {
+            <div class="result-box__placeholder">El contenido procesado se mostrara aqui.</div>
+        }
+    </div>
+</section>

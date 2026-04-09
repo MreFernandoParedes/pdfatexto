@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Extractor de Texto de PDF</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="app-shell">
+        <header class="topbar">
+            <div class="topbar__content">
+                <div class="brand">
+                    <img src="~/images/logo_mre.png" alt="Ministerio de Relaciones Exteriores" class="brand__logo" />
+                    <div class="brand__copy">
+                        <div class="brand__title">Extractor de Texto de PDF</div>
+                        <div class="brand__subtitle">Procesamiento y normalización documental</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="page-content">
+            @RenderBody()
+        </main>
+    </div>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
