@@ -9,6 +9,7 @@ builder.Services.Configure<ClaudeOptions>(
     builder.Configuration.GetSection(ClaudeOptions.SectionName));
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddSession();
 builder.Services.AddHttpClient<IClaudeService, ClaudeService>();
 builder.Services.AddScoped<IPdfExtractionService, PdfExtractionService>();
 
@@ -23,6 +24,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

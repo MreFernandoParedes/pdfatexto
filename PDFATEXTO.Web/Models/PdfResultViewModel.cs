@@ -13,4 +13,9 @@ public sealed class PdfResultViewModel
     public string? ErrorMessage { get; set; }
 
     public bool TieneResultado => !string.IsNullOrWhiteSpace(ContenidoExtraido);
+
+    public string DownloadFileName =>
+        string.IsNullOrWhiteSpace(NombreArchivo)
+            ? "texto_extraido.txt"
+            : $"{Path.GetFileNameWithoutExtension(NombreArchivo)}_extraido.txt";
 }

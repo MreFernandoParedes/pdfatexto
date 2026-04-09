@@ -6,6 +6,9 @@ namespace PDFATEXTO.Web.Controllers;
 
 public sealed class HomeController : Controller
 {
+    private const string ExtractedTextSessionKey = "ExtractedText";
+    private const string ExtractedFileNameSessionKey = "ExtractedFileName";
+
     private readonly IPdfExtractionService _pdfExtractionService;
 
     public HomeController(IPdfExtractionService pdfExtractionService)
@@ -45,7 +48,28 @@ public sealed class HomeController : Controller
         model.ContenidoExtraido = result.Content;
         model.ErrorMessage = result.ErrorMessage;
 
+        if (!string.IsNullOrWhiteSpace(result.Content))
+        {
+            HttpContext.Session.SetString(ExtractedTextSessionKey, result.Content);
+            HttpContext.Session.SetString(ExtractedFileNameSessionKey, model.DownloadFileName);
+        }
+
         return View(model);
+    }
+
+    [HttpGet]
+    public IActionResult Download()
+    {
+        var extractedText = HttpContext.Session.GetString(ExtractedTextSessionKey);
+        if (string.IsNullOrWhiteSpace(extractedText))
+        {
+            return RedirectToAction(nameof(Index));
+        }
+
+        var fileName = HttpContext.Session.GetString(ExtractedFileNameSessionKey);
+        var downloadName = string.IsNullOrWhiteSpace(fileName) ? "texto_extraido.txt" : fileName;
+
+        return File(Encoding.UTF8.GetBytes(extractedText), "text/plain; charset=utf-8", downloadName);
     }
 
     [HttpGet]

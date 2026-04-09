@@ -46,7 +46,13 @@
             <h2 class="panel__title">Contenido extraido</h2>
             <p class="panel__description">El contenido procesado se mostrara aqui.</p>
         </div>
-        <span class="status @stateClass">@stateText</span>
+        <div class="result-actions">
+            <span class="status @stateClass">@stateText</span>
+            @if (Model.TieneResultado)
+            {
+                <a asp-action="Download" asp-controller="Home" class="button button--secondary">Descargar texto</a>
+            }
+        </div>
     </div>
 
     <div class="result-box" aria-live="polite">
