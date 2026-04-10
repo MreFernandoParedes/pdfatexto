@@ -1,0 +1,31 @@
+# Build outputs
+bin/
+obj/
+out/
+publish/
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio folders
+.vs/
+
+# Logs
+*.log
+logs/
+
+# Local environment overrides
+appsettings.Development.json
+.env
+.env.*
+
+# Node artifacts if introduced later
+node_modules/
+
+# OS files
+Thumbs.db
+Desktop.ini
