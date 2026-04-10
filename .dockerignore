@@ -1,0 +1,12 @@
+.git
+.gitignore
+.vs
+bin
+obj
+out
+publish
+node_modules
+README.md
+**/bin
+**/obj
+**/.vs
