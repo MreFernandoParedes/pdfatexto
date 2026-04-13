@@ -1,3 +1,4 @@
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using PDFATEXTO.Web.Models;
 using PDFATEXTO.Web.Services;
